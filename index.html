@@ -42,161 +42,223 @@
 <section class="catalog" id="catalog">
   <div class="container">
     <h2 class="section-title">Каталог продукції</h2>
-    <p class="section-sub">Повний асортимент скляних душових рішень — обираємо разом ідеальну конфігурацію для вашої ванної кімнати.</p>
+    <p class="section-sub">Оберіть категорію зліва — і одразу побачите відповідні рішення для вашої ванної кімнати.</p>
 
-    <div class="catalog-grid">
+    <div class="catalog-layout">
+      <aside class="catalog-nav" id="catalogNav">
+        <button class="catalog-nav-item active" data-cat="all">Усі категорії</button>
+        <button class="catalog-nav-item" data-cat="cabins">Скляні душові кабіни</button>
+        <button class="catalog-nav-item" data-cat="partitions">Душові перегородки</button>
+        <button class="catalog-nav-item" data-cat="bath">Скляні перегородки у ванну</button>
+        <button class="catalog-nav-item" data-cat="doors">Душові двері зі скла</button>
+        <button class="catalog-nav-item" data-cat="corner">Кутові душові кабіни</button>
+        <button class="catalog-nav-item" data-cat="pshape">П-подібні душові кабіни</button>
+        <button class="catalog-nav-item" data-cat="swing">Розпашні кабіни</button>
+        <button class="catalog-nav-item" data-cat="sliding">Розсувні кабіни</button>
+      </aside>
 
-      <article class="cat-card">
-        <div class="cat-thumb" style="--c1:#bfe9f5;--c2:#7fd0e8;">
-          <svg viewBox="0 0 200 160"><rect x="30" y="20" width="60" height="120" fill="none" stroke="#0a5a73" stroke-width="3"/><rect x="100" y="20" width="70" height="120" fill="#cdf1fb" opacity=".6" stroke="#0a5a73" stroke-width="3"/></svg>
-        </div>
-        <h3>Скляні душові кабіни</h3>
-        <p>Класичні та індивідуальні кабіни з закаленого скла товщиною 6–10 мм.</p>
-        <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
-      </article>
+      <div class="catalog-grid" id="catalogGrid">
 
-      <article class="cat-card">
-        <div class="cat-thumb" style="--c1:#d8f0e3;--c2:#8fd9b6;">
-          <svg viewBox="0 0 200 160"><rect x="20" y="20" width="160" height="120" fill="none" stroke="#0a6b46" stroke-width="3"/><line x1="100" y1="20" x2="100" y2="140" stroke="#0a6b46" stroke-width="3"/></svg>
-        </div>
-        <h3>Душові перегородки</h3>
-        <p>Стаціонарні та мобільні перегородки для зонування ванної кімнати.</p>
-        <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
-      </article>
+        <article class="cat-card" data-cat="cabins">
+          <div class="cat-thumb" style="--c1:#bfe9f5;--c2:#7fd0e8;">
+            <svg viewBox="0 0 200 160"><rect x="30" y="20" width="60" height="120" fill="none" stroke="#0a5a73" stroke-width="3"/><rect x="100" y="20" width="70" height="120" fill="#cdf1fb" opacity=".6" stroke="#0a5a73" stroke-width="3"/></svg>
+          </div>
+          <span class="cat-tag">Скляні душові кабіни</span>
+          <h3>Класична кабіна</h3>
+          <p>Закалене скло 6–10 мм, індивідуальні розміри під ваш простір.</p>
+          <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
+        </article>
 
-      <article class="cat-card">
-        <div class="cat-thumb" style="--c1:#e6e1f7;--c2:#b3a3e8;">
-          <svg viewBox="0 0 200 160"><rect x="20" y="100" width="160" height="40" fill="#cdbef0" opacity=".5" stroke="#4a2e8c" stroke-width="3"/><rect x="40" y="20" width="120" height="80" fill="none" stroke="#4a2e8c" stroke-width="3"/></svg>
-        </div>
-        <h3>Скляні перегородки у ванну</h3>
-        <p>Захист простору навколо ванни без важких каркасів та профілів.</p>
-        <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
-      </article>
+        <article class="cat-card" data-cat="partitions">
+          <div class="cat-thumb" style="--c1:#d8f0e3;--c2:#8fd9b6;">
+            <svg viewBox="0 0 200 160"><rect x="20" y="20" width="160" height="120" fill="none" stroke="#0a6b46" stroke-width="3"/><line x1="100" y1="20" x2="100" y2="140" stroke="#0a6b46" stroke-width="3"/></svg>
+          </div>
+          <span class="cat-tag">Душові перегородки</span>
+          <h3>Стаціонарна перегородка</h3>
+          <p>Зонування ванної кімнати без важких каркасів та профілів.</p>
+          <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
+        </article>
 
-      <article class="cat-card">
-        <div class="cat-thumb" style="--c1:#fde7d3;--c2:#f5b27a;">
-          <svg viewBox="0 0 200 160"><rect x="50" y="15" width="100" height="130" fill="none" stroke="#a85a1c" stroke-width="3"/><circle cx="130" cy="80" r="4" fill="#a85a1c"/></svg>
-        </div>
-        <h3>Душові двері зі скла</h3>
-        <p>Розпашні, маятникові та складні двері для будь-якого формату прорізу.</p>
-        <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
-      </article>
+        <article class="cat-card" data-cat="bath">
+          <div class="cat-thumb" style="--c1:#e6e1f7;--c2:#b3a3e8;">
+            <svg viewBox="0 0 200 160"><rect x="20" y="100" width="160" height="40" fill="#cdbef0" opacity=".5" stroke="#4a2e8c" stroke-width="3"/><rect x="40" y="20" width="120" height="80" fill="none" stroke="#4a2e8c" stroke-width="3"/></svg>
+          </div>
+          <span class="cat-tag">Перегородки у ванну</span>
+          <h3>Захисний екран на ванну</h3>
+          <p>Легкий монтаж, мінімум швів, максимальний захист від бризок.</p>
+          <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
+        </article>
 
-      <article class="cat-card">
-        <div class="cat-thumb" style="--c1:#fde0e6;--c2:#f291a8;">
-          <svg viewBox="0 0 200 160"><polyline points="30,140 30,30 170,30" fill="none" stroke="#9c1f44" stroke-width="3"/><polyline points="30,140 170,140 170,30" fill="none" stroke="#9c1f44" stroke-width="3" opacity=".5"/></svg>
-        </div>
-        <h3>Кутові душові кабіни</h3>
-        <p>Оптимальне рішення для компактних ванних кімнат — економія простору.</p>
-        <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
-      </article>
+        <article class="cat-card" data-cat="doors">
+          <div class="cat-thumb" style="--c1:#fde7d3;--c2:#f5b27a;">
+            <svg viewBox="0 0 200 160"><rect x="50" y="15" width="100" height="130" fill="none" stroke="#a85a1c" stroke-width="3"/><circle cx="130" cy="80" r="4" fill="#a85a1c"/></svg>
+          </div>
+          <span class="cat-tag">Двері зі скла</span>
+          <h3>Маятникові двері</h3>
+          <p>Двосторонні двері для будь-якого формату дверного прорізу.</p>
+          <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
+        </article>
 
-      <article class="cat-card">
-        <div class="cat-thumb" style="--c1:#e0f2fe;--c2:#7cc6f0;">
-          <svg viewBox="0 0 200 160"><polyline points="40,140 40,30 100,30 100,140" fill="none" stroke="#0b5d8f" stroke-width="3"/><line x1="160" y1="30" x2="160" y2="140" stroke="#0b5d8f" stroke-width="3"/></svg>
-        </div>
-        <h3>П-подібні душові кабіни</h3>
-        <p>Три скляні стінки для максимального захисту від води у відкритих зонах.</p>
-        <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
-      </article>
+        <article class="cat-card" data-cat="corner">
+          <div class="cat-thumb" style="--c1:#fde0e6;--c2:#f291a8;">
+            <svg viewBox="0 0 200 160"><polyline points="30,140 30,30 170,30" fill="none" stroke="#9c1f44" stroke-width="3"/><polyline points="30,140 170,140 170,30" fill="none" stroke="#9c1f44" stroke-width="3" opacity=".5"/></svg>
+          </div>
+          <span class="cat-tag">Кутові кабіни</span>
+          <h3>Кутова кабіна 90×90</h3>
+          <p>Економія простору для компактних ванних кімнат.</p>
+          <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
+        </article>
 
-      <article class="cat-card">
-        <div class="cat-thumb" style="--c1:#fef6d8;--c2:#f0d264;">
-          <svg viewBox="0 0 200 160"><rect x="50" y="15" width="100" height="130" fill="none" stroke="#8a6d0a" stroke-width="3"/><path d="M150 20 a90 90 0 0 1 0 120" fill="none" stroke="#8a6d0a" stroke-width="2" stroke-dasharray="4 4"/></svg>
-        </div>
-        <h3>Розпашні кабіни</h3>
-        <p>Двері, що відчиняються назовні — традиційний та надійний механізм.</p>
-        <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
-      </article>
+        <article class="cat-card" data-cat="pshape">
+          <div class="cat-thumb" style="--c1:#e0f2fe;--c2:#7cc6f0;">
+            <svg viewBox="0 0 200 160"><polyline points="40,140 40,30 100,30 100,140" fill="none" stroke="#0b5d8f" stroke-width="3"/><line x1="160" y1="30" x2="160" y2="140" stroke="#0b5d8f" stroke-width="3"/></svg>
+          </div>
+          <span class="cat-tag">П-подібні кабіни</span>
+          <h3>П-подібна кабіна</h3>
+          <p>Три скляні стінки для максимального захисту у відкритих зонах.</p>
+          <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
+        </article>
 
-      <article class="cat-card">
-        <div class="cat-thumb" style="--c1:#e7f3d8;--c2:#a9d96a;">
-          <svg viewBox="0 0 200 160"><rect x="30" y="20" width="140" height="120" fill="none" stroke="#4d6e1c" stroke-width="3"/><line x1="100" y1="20" x2="100" y2="140" stroke="#4d6e1c" stroke-width="3"/><path d="M40 80 h50" stroke="#4d6e1c" stroke-width="2" marker-end="url(#a)"/></svg>
-        </div>
-        <h3>Розсувні кабіни</h3>
-        <p>Двері-купе на роликовій системі — ідеально для обмеженого простору.</p>
-        <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
-      </article>
+        <article class="cat-card" data-cat="swing">
+          <div class="cat-thumb" style="--c1:#fef6d8;--c2:#f0d264;">
+            <svg viewBox="0 0 200 160"><rect x="50" y="15" width="100" height="130" fill="none" stroke="#8a6d0a" stroke-width="3"/><path d="M150 20 a90 90 0 0 1 0 120" fill="none" stroke="#8a6d0a" stroke-width="2" stroke-dasharray="4 4"/></svg>
+          </div>
+          <span class="cat-tag">Розпашні кабіни</span>
+          <h3>Розпашна кабіна</h3>
+          <p>Двері, що відчиняються назовні — традиційний надійний механізм.</p>
+          <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
+        </article>
 
+        <article class="cat-card" data-cat="sliding">
+          <div class="cat-thumb" style="--c1:#e7f3d8;--c2:#a9d96a;">
+            <svg viewBox="0 0 200 160"><rect x="30" y="20" width="140" height="120" fill="none" stroke="#4d6e1c" stroke-width="3"/><line x1="100" y1="20" x2="100" y2="140" stroke="#4d6e1c" stroke-width="3"/></svg>
+          </div>
+          <span class="cat-tag">Розсувні кабіни</span>
+          <h3>Кабіна-купе</h3>
+          <p>Двері на роликовій системі — ідеально для обмеженого простору.</p>
+          <a href="#contacts" class="cat-link">Дізнатись ціну →</a>
+        </article>
+
+      </div>
     </div>
   </div>
 </section>
 
-<section class="production" id="production">
-  <div class="container">
-    <h2 class="section-title light">Етапи виробництва</h2>
-    <p class="section-sub light">Дивіться, як з листа скла народжується ваша майбутня душова кабіна — від розкрою до монтажу.</p>
+<section class="process" id="production">
+  <div class="container process-head">
+    <h2 class="section-title light">Шлях скла: від сировини до душової кабіни</h2>
+    <p class="section-sub light">Прокручуйте сторінку — і дивіться, як кварцовий пісок перетворюється на готову душову кабіну Cube Glass.</p>
+  </div>
 
-    <div class="video-grid">
+  <div class="process-layout">
 
-      <div class="video-card">
-        <div class="video-frame">
-          <div class="video-placeholder" data-stage="1">
-            <div class="play-btn">▶</div>
-            <span class="stage-badge">Етап 1</span>
+    <div class="process-visual-wrap">
+      <div class="process-visual" id="processVisual">
+
+        <div class="scene active" data-scene="1">
+          <div class="scene-stage sand-stage">
+            <div class="sand-pile"></div>
+            <div class="sand-grain g1"></div><div class="sand-grain g2"></div>
+            <div class="sand-grain g3"></div><div class="sand-grain g4"></div>
+            <div class="sand-grain g5"></div><div class="sand-grain g6"></div>
           </div>
         </div>
-        <h4>Розкрій та обробка скла</h4>
-        <p>Точний розкрій загартованого скла за індивідуальними розмірами, шліфування та обробка кромки.</p>
+
+        <div class="scene" data-scene="2">
+          <div class="scene-stage furnace-stage">
+            <div class="furnace-glow"></div>
+            <div class="furnace-body">
+              <div class="molten-pool"></div>
+            </div>
+            <div class="spark s1"></div><div class="spark s2"></div><div class="spark s3"></div>
+          </div>
+        </div>
+
+        <div class="scene" data-scene="3">
+          <div class="scene-stage cut-stage">
+            <div class="glass-sheet"></div>
+            <div class="cut-line"></div>
+            <div class="cut-spark"></div>
+          </div>
+        </div>
+
+        <div class="scene" data-scene="4">
+          <div class="scene-stage temper-stage">
+            <div class="temper-oven">
+              <div class="temper-glass"></div>
+              <div class="heat-bar h1"></div><div class="heat-bar h2"></div><div class="heat-bar h3"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scene" data-scene="5">
+          <div class="scene-stage fittings-stage">
+            <div class="fitting hinge"></div>
+            <div class="fitting handle"></div>
+            <div class="fitting profile"></div>
+            <div class="bolt b1"></div><div class="bolt b2"></div>
+          </div>
+        </div>
+
+        <div class="scene" data-scene="6">
+          <div class="scene-stage cabin-stage">
+            <div class="cabin-panel p1"></div>
+            <div class="cabin-panel p2"></div>
+            <div class="cabin-door"></div>
+            <div class="cabin-base"></div>
+          </div>
+        </div>
+
+        <div class="process-dots" id="processDots">
+          <span class="dot active" data-dot="1"></span>
+          <span class="dot" data-dot="2"></span>
+          <span class="dot" data-dot="3"></span>
+          <span class="dot" data-dot="4"></span>
+          <span class="dot" data-dot="5"></span>
+          <span class="dot" data-dot="6"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-steps" id="processSteps">
+
+      <div class="step active" data-step="1">
+        <span class="step-num">01</span>
+        <h4>Сировина для скла</h4>
+        <p>Кварцовий пісок, кальцинована сода та вапняк змішуються у точних пропорціях — основа майбутнього скла.</p>
       </div>
 
-      <div class="video-card">
-        <div class="video-frame">
-          <div class="video-placeholder" data-stage="2">
-            <div class="play-btn">▶</div>
-            <span class="stage-badge">Етап 2</span>
-          </div>
-        </div>
-        <h4>Загартування та контроль якості</h4>
-        <p>Термічна обробка скла для підвищення міцності та безпеки, перевірка кожної панелі.</p>
+      <div class="step" data-step="2">
+        <span class="step-num">02</span>
+        <h4>Плавлення при 1500°C</h4>
+        <p>Сировина потрапляє у піч, де при надвисокій температурі перетворюється на однорідну розплавлену масу скла.</p>
       </div>
 
-      <div class="video-card">
-        <div class="video-frame">
-          <div class="video-placeholder" data-stage="3">
-            <div class="play-btn">▶</div>
-            <span class="stage-badge">Етап 3</span>
-          </div>
-        </div>
-        <h4>Збірка профілю та фурнітури</h4>
-        <p>Монтаж кріплень, петель та ущільнювачів — підготовка кабіни до встановлення.</p>
+      <div class="step" data-step="3">
+        <span class="step-num">03</span>
+        <h4>Розкрій листового скла</h4>
+        <p>Охолоджені листи скла розкроюються за індивідуальними розмірами замовлення з мінімальними допусками.</p>
       </div>
 
-      <div class="video-card">
-        <div class="video-frame">
-          <div class="video-placeholder" data-stage="4">
-            <div class="play-btn">▶</div>
-            <span class="stage-badge">Етап 4</span>
-          </div>
-        </div>
-        <h4>Пакування та доставка</h4>
-        <p>Надійне пакування готових виробів для безпечного транспортування клієнту.</p>
+      <div class="step" data-step="4">
+        <span class="step-num">04</span>
+        <h4>Загартування</h4>
+        <p>Скло нагрівають і миттєво охолоджують повітрям — це підвищує міцність у 5 разів та робить його безпечним.</p>
       </div>
 
-      <div class="video-card">
-        <div class="video-frame">
-          <div class="video-placeholder" data-stage="5">
-            <div class="play-btn">▶</div>
-            <span class="stage-badge">Етап 5</span>
-          </div>
-        </div>
-        <h4>Монтаж душової кабіни</h4>
-        <p>Професійне встановлення та фінальне регулювання конструкції на об'єкті клієнта.</p>
+      <div class="step" data-step="5">
+        <span class="step-num">05</span>
+        <h4>Виготовлення фурнітури</h4>
+        <p>Паралельно виготовляються профілі, петлі, ручки та кріплення — кожна деталь з нержавіючої сталі.</p>
       </div>
 
-      <div class="video-card">
-        <div class="video-frame">
-          <div class="video-placeholder" data-stage="6">
-            <div class="play-btn">▶</div>
-            <span class="stage-badge">Етап 6</span>
-          </div>
-        </div>
-        <h4>Готовий результат</h4>
-        <p>Чиста, надійна та стильна душова кабіна, готова до використання.</p>
+      <div class="step" data-step="6">
+        <span class="step-num">06</span>
+        <h4>Збірка душової кабіни</h4>
+        <p>Скляні панелі та фурнітура з'єднуються в готову конструкцію, що проходить фінальний контроль якості перед монтажем.</p>
       </div>
 
     </div>
-    <p class="video-note">* Відео цього блоку — заглушки. Завантажте власні файли у папку <code>/videos</code> та підключіть їх у <code>script.js</code> (масив <code>STAGE_VIDEOS</code>), щоб замінити демо-анімацію на реальні кадри виробництва.</p>
   </div>
 </section>
 
@@ -216,9 +278,10 @@
       <a href="#contacts" class="btn btn-primary">Замовити кабіну Релакс</a>
     </div>
     <div class="relax-media">
-      <div class="video-placeholder relax-placeholder" data-stage="relax">
-        <div class="play-btn">▶</div>
-        <span class="stage-badge">Кабіна Релакс</span>
+      <div class="relax-visual">
+        <div class="relax-glass"></div>
+        <div class="relax-door"></div>
+        <div class="relax-shine"></div>
       </div>
     </div>
   </div>

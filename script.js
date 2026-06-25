@@ -1,41 +1,43 @@
-// Заповніть шляхами до реальних відео, коли вони з'являться у папці /videos.
-// Ключ "relax" відповідає блоку кабіни Релакс, інші ключі — номерам етапів виробництва.
-const STAGE_VIDEOS = {
-  1: null, // "videos/stage-1-cutting.mp4"
-  2: null, // "videos/stage-2-tempering.mp4"
-  3: null, // "videos/stage-3-assembly.mp4"
-  4: null, // "videos/stage-4-packing.mp4"
-  5: null, // "videos/stage-5-installation.mp4"
-  6: null, // "videos/stage-6-result.mp4"
-  relax: null, // "videos/relax-cabin.mp4"
-};
+// --- Catalog filter ---
+const navItems = document.querySelectorAll('.catalog-nav-item');
+const catCards = document.querySelectorAll('.cat-card');
 
-document.querySelectorAll('.video-placeholder').forEach((el) => {
-  el.addEventListener('click', () => {
-    const stage = el.dataset.stage;
-    const src = STAGE_VIDEOS[stage];
-    if (!src) {
-      el.classList.add('no-video');
-      const badge = el.querySelector('.stage-badge');
-      if (badge && !el.dataset.warned) {
-        el.dataset.warned = '1';
-        const original = badge.textContent;
-        badge.textContent = 'Відео скоро буде';
-        setTimeout(() => { badge.textContent = original; }, 2000);
-      }
-      return;
-    }
-    const video = document.createElement('video');
-    video.src = src;
-    video.controls = true;
-    video.autoplay = true;
-    video.playsInline = true;
-    video.style.width = '100%';
-    video.style.height = '100%';
-    video.style.objectFit = 'cover';
-    el.replaceWith(video);
+navItems.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    navItems.forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    catCards.forEach((card) => {
+      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+    });
   });
 });
+
+// --- Production process: scroll-synced scenes ---
+const steps = document.querySelectorAll('.step');
+const scenes = document.querySelectorAll('.scene');
+const dots = document.querySelectorAll('.dot');
+
+if (steps.length) {
+  const setActiveStage = (n) => {
+    scenes.forEach((s) => s.classList.toggle('active', s.dataset.scene === n));
+    dots.forEach((d) => d.classList.toggle('active', d.dataset.dot === n));
+    steps.forEach((s) => s.classList.toggle('active', s.dataset.step === n));
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveStage(entry.target.dataset.step);
+        }
+      });
+    },
+    { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+  );
+
+  steps.forEach((step) => observer.observe(step));
+}
 
 // Burger menu toggle
 const burger = document.getElementById('burger');
