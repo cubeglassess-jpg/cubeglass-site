@@ -121,68 +121,140 @@ h1, h2, h3, h4 { margin: 0; }
   background: radial-gradient(circle at 30% 20%, #163246, #081420 70%);
   box-shadow: 0 30px 60px rgba(0,0,0,.4);
 }
-.scene { position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease, transform .7s ease; transform: scale(1.04); }
+.scene { position: absolute; inset: 0; opacity: 0; transition: opacity 1s cubic-bezier(.4,0,.2,1), transform 1.1s cubic-bezier(.22,1,.36,1); transform: scale(1.08); pointer-events: none; }
 .scene.active { opacity: 1; transform: scale(1); }
-.scene-stage { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.scene-stage { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 
-/* Scene 1: sand / raw material */
-.sand-stage { background: linear-gradient(180deg, #1b2c38, #0c1820); }
-.sand-pile { width: 220px; height: 110px; border-radius: 50% 50% 10% 10% / 90% 90% 10% 10%; background: linear-gradient(180deg, #e8cf8f, #c7a85b); box-shadow: inset 0 -10px 20px rgba(0,0,0,.2); }
-.sand-grain { position: absolute; width: 5px; height: 5px; background: #e8cf8f; border-radius: 50%; animation: fall 3.5s linear infinite; }
-.g1 { left: 35%; top: -10%; animation-delay: 0s; } .g2 { left: 45%; top: -10%; animation-delay: .6s; }
-.g3 { left: 55%; top: -10%; animation-delay: 1.2s; } .g4 { left: 65%; top: -10%; animation-delay: 1.8s; }
-.g5 { left: 50%; top: -10%; animation-delay: 2.4s; } .g6 { left: 40%; top: -10%; animation-delay: 3s; }
-@keyframes fall { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } 70% { transform: translateY(160px); opacity: 1; } 100% { transform: translateY(170px); opacity: 0; } }
+/* Shared cinematic overlays */
+.scene-vignette { position: absolute; inset: 0; z-index: 8; pointer-events: none; background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.55) 100%); }
+.scene-vignette.warm { background: radial-gradient(ellipse at center, transparent 38%, rgba(20,4,0,.6) 100%); }
+.scene-vignette.cool { background: radial-gradient(ellipse at center, transparent 45%, rgba(0,8,16,.6) 100%); }
+.scene-grain { position: absolute; inset: -50%; z-index: 9; pointer-events: none; opacity: .05; background-image: repeating-conic-gradient(#fff 0 0.0006turn, #000 0 0.0012turn); background-size: 3px 3px; animation: grainShift .5s steps(3) infinite; mix-blend-mode: overlay; }
+@keyframes grainShift { 0%{transform:translate(0,0)} 33%{transform:translate(-2%,1%)} 66%{transform:translate(1%,-2%)} 100%{transform:translate(0,0)} }
+.depth-back { position: absolute; inset: 0; background: radial-gradient(circle at 50% 30%, rgba(80,140,180,.12), transparent 60%); filter: blur(2px); }
+.depth-back.cool { background: radial-gradient(circle at 50% 35%, rgba(60,160,210,.16), transparent 62%); }
+.depth-back.steel { background: radial-gradient(circle at 50% 30%, rgba(150,170,190,.12), transparent 60%); }
+.spotlight { position: absolute; top: -20%; left: 50%; width: 70%; height: 130%; transform: translateX(-50%); background: radial-gradient(ellipse at top, rgba(255,255,255,.14), transparent 60%); pointer-events: none; }
+.spotlight.soft { background: radial-gradient(ellipse at top, rgba(150,220,255,.16), transparent 62%); }
 
-/* Scene 2: furnace / melting */
-.furnace-stage { background: linear-gradient(180deg, #2a1208, #160805); }
-.furnace-glow { position: absolute; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(255,140,40,.55), transparent 70%); animation: pulseGlow 2.4s ease-in-out infinite; }
-@keyframes pulseGlow { 0%,100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
-.furnace-body { width: 220px; height: 140px; border-radius: 16px; background: linear-gradient(180deg, #3a2014, #1c0f0a); border: 4px solid #5a3420; position: relative; z-index: 2; overflow: hidden; }
-.molten-pool { position: absolute; inset: 18px; border-radius: 10px; background: linear-gradient(120deg, #ff9d3d, #ffcf6b, #ff7a1f); background-size: 200% 200%; animation: moltenMove 3s ease-in-out infinite; }
+/* ---- Scene 1: raw material — sand, god rays, dust ---- */
+.sand-stage { background: linear-gradient(180deg, #243743 0%, #16252f 55%, #0a141b 100%); }
+.godray { position: absolute; top: -10%; width: 60px; height: 120%; background: linear-gradient(180deg, rgba(255,240,200,.18), transparent 75%); filter: blur(8px); transform-origin: top center; animation: rayBreathe 5s ease-in-out infinite; }
+.gr1 { left: 30%; transform: rotate(8deg); animation-delay: 0s; }
+.gr2 { left: 48%; transform: rotate(-4deg); height: 130%; animation-delay: 1.2s; }
+.gr3 { left: 64%; transform: rotate(12deg); animation-delay: 2.4s; }
+@keyframes rayBreathe { 0%,100%{ opacity:.5 } 50%{ opacity:1 } }
+.sand-dune { position: absolute; bottom: 0; width: 130%; border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
+.dune-back { height: 38%; background: linear-gradient(180deg, #4a3a22, #2c2113); filter: blur(3px); opacity: .7; left: -20%; }
+.dune-mid { height: 30%; background: linear-gradient(180deg, #6e5631, #43331c); left: -10%; }
+.sand-pile { position: relative; z-index: 3; width: 250px; height: 130px; border-radius: 50% 50% 8% 8% / 92% 92% 8% 8%; background: radial-gradient(ellipse at 38% 25%, #f0d896 0%, #d8b86a 45%, #a8843f 100%); box-shadow: inset 0 -14px 26px rgba(60,40,10,.45), 0 16px 30px rgba(0,0,0,.4); }
+.sand-hi { position: absolute; top: 14%; left: 24%; width: 44%; height: 30%; border-radius: 50%; background: radial-gradient(ellipse, rgba(255,250,225,.5), transparent 70%); filter: blur(4px); }
+.sand-stream { position: absolute; inset: 0; z-index: 4; }
+.sand-grain { position: absolute; width: 4px; height: 4px; background: radial-gradient(circle, #f5e3ad, #c9a560); border-radius: 50%; box-shadow: 0 0 4px rgba(245,227,173,.6); animation: fall 3s linear infinite; }
+.g1 { left: 42%; top: 6%; animation-delay: 0s; } .g2 { left: 47%; top: 6%; animation-delay: .4s; }
+.g3 { left: 52%; top: 6%; animation-delay: .8s; } .g4 { left: 45%; top: 6%; animation-delay: 1.2s; }
+.g5 { left: 50%; top: 6%; animation-delay: 1.6s; } .g6 { left: 48%; top: 6%; animation-delay: 2s; }
+.g7 { left: 44%; top: 6%; animation-delay: 2.4s; } .g8 { left: 51%; top: 6%; animation-delay: 2.8s; }
+@keyframes fall { 0% { transform: translateY(0) scale(1); opacity: 0; } 10% { opacity: 1; } 80% { transform: translateY(150px) scale(.7); opacity: 1; } 100% { transform: translateY(165px) scale(.4); opacity: 0; } }
+.dust { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: rgba(255,245,215,.5); filter: blur(.5px); animation: floatDust 9s ease-in-out infinite; }
+.d1 { left: 25%; top: 40%; animation-delay: 0s; } .d2 { left: 70%; top: 30%; animation-delay: 1.5s; }
+.d3 { left: 55%; top: 55%; animation-delay: 3s; } .d4 { left: 35%; top: 65%; animation-delay: 4.5s; }
+.d5 { left: 80%; top: 50%; animation-delay: 6s; } .d6 { left: 18%; top: 55%; animation-delay: 7.5s; }
+@keyframes floatDust { 0%,100%{ transform: translate(0,0); opacity:.2 } 50%{ transform: translate(14px,-22px); opacity:.7 } }
+
+/* ---- Scene 2: melting — furnace, molten glass, embers, haze ---- */
+.furnace-stage { background: radial-gradient(circle at 50% 60%, #5a2a10, #2a1208 50%, #140603 100%); }
+.heat-haze { position: absolute; inset: 0; z-index: 6; background: repeating-linear-gradient(180deg, transparent 0 8px, rgba(255,160,60,.04) 8px 9px); animation: hazeRise 3s linear infinite; pointer-events: none; }
+@keyframes hazeRise { 0%{ background-position: 0 0 } 100%{ background-position: 0 -40px } }
+.furnace-glow { position: absolute; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255,130,30,.5), rgba(255,80,10,.18) 50%, transparent 72%); animation: pulseGlow 2.6s ease-in-out infinite; filter: blur(6px); }
+.furnace-glow-core { position: absolute; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(255,220,150,.55), transparent 70%); animation: pulseGlow 1.8s ease-in-out infinite reverse; }
+@keyframes pulseGlow { 0%,100% { opacity: .65; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+.furnace-body { position: relative; z-index: 3; width: 260px; height: 160px; border-radius: 14px 14px 18px 18px; background: linear-gradient(180deg, #4a2716, #240f08); border: 5px solid #6a3c22; box-shadow: inset 0 0 30px rgba(0,0,0,.6), 0 18px 36px rgba(0,0,0,.5); overflow: hidden; }
+.furnace-arch { position: absolute; top: -2px; left: 50%; transform: translateX(-50%); width: 80%; height: 40px; border-radius: 0 0 50% 50%; background: linear-gradient(180deg, #1a0a05, transparent); }
+.molten-pool { position: absolute; inset: 22px; border-radius: 8px; background: linear-gradient(120deg, #ff7a1f, #ffd27a, #ff9d3d, #ffb84d); background-size: 300% 300%; box-shadow: 0 0 40px rgba(255,150,40,.7), inset 0 0 20px rgba(255,220,150,.6); animation: moltenMove 4s ease-in-out infinite; overflow: hidden; }
 @keyframes moltenMove { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-.spark { position: absolute; width: 4px; height: 4px; background: #ffcf6b; border-radius: 50%; animation: sparkUp 2s ease-in infinite; }
-.s1 { left: 42%; bottom: 30%; animation-delay: 0s; } .s2 { left: 52%; bottom: 28%; animation-delay: .7s; } .s3 { left: 60%; bottom: 32%; animation-delay: 1.3s; }
-@keyframes sparkUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-90px); opacity: 0; } }
+.molten-wave { position: absolute; left: -20%; width: 140%; height: 18px; background: rgba(255,240,200,.35); border-radius: 50%; filter: blur(3px); }
+.w1 { top: 25%; animation: waveSlide 3.5s ease-in-out infinite; }
+.w2 { top: 60%; animation: waveSlide 4.2s ease-in-out infinite reverse; }
+@keyframes waveSlide { 0%,100%{ transform: translateX(-8%) } 50%{ transform: translateX(8%) } }
+.molten-shine { position: absolute; top: 10%; left: 15%; width: 40%; height: 25%; border-radius: 50%; background: radial-gradient(ellipse, rgba(255,255,240,.7), transparent 70%); filter: blur(2px); animation: shimmerMove 3s ease-in-out infinite; }
+@keyframes shimmerMove { 0%,100%{ transform: translate(0,0); opacity:.6 } 50%{ transform: translate(30px,4px); opacity:1 } }
+.molten-drip { position: absolute; bottom: -6px; left: 50%; width: 12px; height: 24px; background: linear-gradient(180deg, #ffc266, #ff7a1f); border-radius: 0 0 50% 50%; box-shadow: 0 0 12px rgba(255,140,40,.8); animation: dripGlow 2s ease-in-out infinite; }
+@keyframes dripGlow { 0%,100%{ transform: scaleY(.85); opacity:.8 } 50%{ transform: scaleY(1.1); opacity:1 } }
+.ember { position: absolute; width: 4px; height: 4px; background: radial-gradient(circle, #ffe1a0, #ff7a1f); border-radius: 50%; box-shadow: 0 0 8px rgba(255,150,50,.9); animation: emberUp 3s ease-in infinite; }
+.e1{left:40%;bottom:34%;animation-delay:0s}.e2{left:48%;bottom:32%;animation-delay:.5s}
+.e3{left:56%;bottom:36%;animation-delay:1s}.e4{left:44%;bottom:30%;animation-delay:1.5s}
+.e5{left:52%;bottom:34%;animation-delay:2s}.e6{left:60%;bottom:32%;animation-delay:2.5s}
+.e7{left:36%;bottom:34%;animation-delay:1.2s}.e8{left:64%;bottom:30%;animation-delay:.3s}
+@keyframes emberUp { 0% { transform: translate(0,0) scale(1); opacity: 0; } 15% { opacity: 1; } 100% { transform: translate(var(--ex,-10px),-130px) scale(.3); opacity: 0; } }
+.e1{--ex:-14px}.e3{--ex:12px}.e5{--ex:-8px}.e7{--ex:16px}
 
-/* Scene 3: cutting */
-.cut-stage { background: linear-gradient(180deg, #16384a, #0a1c26); }
-.glass-sheet { width: 280px; height: 180px; background: linear-gradient(135deg, rgba(180,230,250,.35), rgba(120,200,230,.15)); border: 2px solid rgba(210,240,250,.6); border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,.3); }
-.cut-line { position: absolute; width: 2px; height: 180px; background: #2fe0ff; box-shadow: 0 0 12px #2fe0ff; animation: cutMove 2.6s ease-in-out infinite; }
-@keyframes cutMove { 0%,100% { transform: translateX(-138px); } 50% { transform: translateX(138px); } }
-.cut-spark { position: absolute; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 10px #fff; animation: cutMove 2.6s ease-in-out infinite; }
+/* ---- Scene 3: cutting — glass sheet, scoring head ---- */
+.cut-stage { background: linear-gradient(180deg, #1a3c4e 0%, #0e2530 55%, #06141c 100%); }
+.cut-table { position: absolute; bottom: 14%; width: 86%; height: 16px; background: linear-gradient(180deg, #2a3e4a, #16242c); border-radius: 4px; box-shadow: 0 10px 24px rgba(0,0,0,.4); }
+.glass-sheet { position: relative; z-index: 3; width: 320px; height: 200px; background: linear-gradient(135deg, rgba(190,235,252,.32), rgba(120,200,230,.12) 60%, rgba(190,235,252,.22)); border: 1.5px solid rgba(215,245,255,.7); border-radius: 3px; box-shadow: 0 24px 50px rgba(0,0,0,.4), inset 0 0 30px rgba(180,230,250,.15); overflow: hidden; }
+.glass-reflection { position: absolute; top: 0; left: -60%; width: 50%; height: 100%; background: linear-gradient(110deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-18deg); animation: glassGlint 4s ease-in-out infinite; }
+@keyframes glassGlint { 0%{ left:-60% } 55%,100%{ left:160% } }
+.glass-edge-hi { position: absolute; inset: 0; border-radius: 3px; box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(255,255,255,.2); }
+.cut-head { position: absolute; z-index: 4; top: 50%; left: 50%; width: 2px; height: 200px; transform: translate(-160px,-50%); animation: headTravel 3.4s cubic-bezier(.45,0,.55,1) infinite; }
+.cut-line { position: absolute; inset: 0; width: 2px; background: linear-gradient(180deg, transparent, #6fe9ff, #2fe0ff, #6fe9ff, transparent); box-shadow: 0 0 14px #2fe0ff, 0 0 4px #fff; }
+.cut-spark { position: absolute; top: 50%; left: -3px; width: 8px; height: 8px; background: #fff; border-radius: 50%; box-shadow: 0 0 14px 4px rgba(110,233,255,.9); }
+.cut-spark-burst { position: absolute; top: 50%; left: -2px; width: 6px; height: 6px; border-radius: 50%; background: #cdfaff; animation: sparkBurst .4s ease-out infinite; }
+@keyframes sparkBurst { 0%{ transform: scale(.4); opacity:1 } 100%{ transform: scale(2.4); opacity:0 } }
+@keyframes headTravel { 0%,100%{ transform: translate(-160px,-50%) } 50%{ transform: translate(160px,-50%) } }
+.laser-sweep { position: absolute; z-index: 2; width: 320px; height: 200px; background: repeating-linear-gradient(90deg, transparent 0 38px, rgba(110,233,255,.05) 38px 40px); pointer-events: none; }
 
-/* Scene 4: tempering */
-.temper-stage { background: linear-gradient(180deg, #3a1505, #160805); }
-.temper-oven { width: 240px; height: 200px; border: 3px solid #884a1f; border-radius: 12px; position: relative; background: linear-gradient(180deg, #2a1006, #160805); display: flex; align-items: center; justify-content: center; }
-.temper-glass { width: 140px; height: 140px; background: linear-gradient(135deg, #ffd9a0, #ff9b3d); opacity: .85; border-radius: 4px; animation: temperFlicker 1.4s ease-in-out infinite; }
-@keyframes temperFlicker { 0%,100% { opacity: .7; } 50% { opacity: 1; } }
-.heat-bar { position: absolute; bottom: 0; width: 6px; background: linear-gradient(0deg, #ff7a1f, transparent); animation: heatRise 1.8s ease-in-out infinite; }
-.h1 { left: 20%; height: 60%; animation-delay: 0s; } .h2 { left: 50%; height: 80%; animation-delay: .5s; } .h3 { left: 78%; height: 50%; animation-delay: .9s; }
-@keyframes heatRise { 0%,100% { transform: scaleY(.6); opacity: .5; } 50% { transform: scaleY(1); opacity: 1; } }
+/* ---- Scene 4: tempering — heat coils, rollers, quench jets ---- */
+.temper-stage { background: radial-gradient(circle at 50% 50%, #5a2208, #2e1206 55%, #160805 100%); }
+.temper-oven { position: relative; z-index: 3; width: 300px; height: 220px; border: 4px solid #8a4a20; border-radius: 12px; background: linear-gradient(180deg, #34160a, #170805); box-shadow: inset 0 0 40px rgba(0,0,0,.7), 0 18px 36px rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.coil { position: absolute; left: 8%; width: 84%; height: 5px; border-radius: 4px; background: linear-gradient(90deg, #ff5a14, #ffb060, #ff5a14); box-shadow: 0 0 14px rgba(255,110,30,.8); animation: coilGlow 1.6s ease-in-out infinite; }
+.c1{top:14%;animation-delay:0s}.c2{top:30%;animation-delay:.3s}.c3{top:50%;animation-delay:.6s}
+.c4{top:70%;animation-delay:.9s}.c5{top:86%;animation-delay:1.2s}
+@keyframes coilGlow { 0%,100%{ opacity:.55; filter: brightness(.85) } 50%{ opacity:1; filter: brightness(1.3) } }
+.temper-glass { position: relative; z-index: 2; width: 150px; height: 150px; background: linear-gradient(135deg, rgba(255,225,170,.85), rgba(255,150,60,.7)); border-radius: 3px; box-shadow: 0 0 36px rgba(255,160,70,.7); animation: temperSlide 5s ease-in-out infinite; overflow: hidden; }
+.temper-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 40% 30%, rgba(255,255,220,.6), transparent 65%); animation: temperFlicker 1.4s ease-in-out infinite; }
+@keyframes temperFlicker { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+@keyframes temperSlide { 0%,100%{ transform: translateX(-30px) } 50%{ transform: translateX(30px) } }
+.roller { position: absolute; bottom: 8%; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #c9d2d8, #5a6670); box-shadow: 0 2px 6px rgba(0,0,0,.4); animation: rollerSpin 1s linear infinite; }
+.r1{left:18%}.r2{left:40%}.r3{left:60%}.r4{left:80%}
+@keyframes rollerSpin { 0%{ transform: rotate(0) } 100%{ transform: rotate(360deg) } }
+.quench-jet { position: absolute; top: 6%; width: 3px; height: 0; background: linear-gradient(180deg, rgba(180,225,255,.7), transparent); animation: jetBlow 1.4s ease-in-out infinite; }
+.q1{left:26%;animation-delay:0s}.q2{left:44%;animation-delay:.35s}.q3{left:62%;animation-delay:.7s}.q4{left:78%;animation-delay:1.05s}
+@keyframes jetBlow { 0%,100%{ height:0; opacity:0 } 50%{ height:60px; opacity:1 } }
 
-/* Scene 5: fittings */
-.fittings-stage { background: linear-gradient(180deg, #1c2530, #0c1117); }
-.fitting { position: absolute; background: linear-gradient(135deg, #cfd8de, #8b97a0); border-radius: 4px; box-shadow: 0 10px 20px rgba(0,0,0,.3); }
-.hinge { width: 70px; height: 34px; top: 38%; left: 30%; border-radius: 50%; animation: floatY 3s ease-in-out infinite; }
-.handle { width: 18px; height: 90px; top: 32%; left: 55%; border-radius: 8px; animation: floatY 3s ease-in-out infinite .4s; }
-.profile { width: 160px; height: 14px; top: 64%; left: 28%; border-radius: 6px; animation: floatY 3s ease-in-out infinite .8s; }
-@keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-.bolt { position: absolute; width: 10px; height: 10px; background: #aeb8bf; border-radius: 50%; animation: floatY 2.4s ease-in-out infinite; }
-.b1 { top: 30%; left: 65%; } .b2 { top: 70%; left: 60%; animation-delay: .5s; }
+/* ---- Scene 5: hardware — metal fittings, weld sparks ---- */
+.fittings-stage { background: radial-gradient(circle at 50% 35%, #28323d, #161d25 60%, #0b1016 100%); }
+.fitting { position: absolute; background: linear-gradient(135deg, #eef2f5 0%, #b4bfc8 35%, #7c8893 70%, #c8d2da 100%); border-radius: 4px; box-shadow: 0 12px 24px rgba(0,0,0,.4), inset 0 1px 2px rgba(255,255,255,.6); overflow: hidden; }
+.metal-shine { position: absolute; top: 0; left: -70%; width: 50%; height: 100%; background: linear-gradient(110deg, transparent, rgba(255,255,255,.7), transparent); transform: skewX(-20deg); animation: glassGlint 3.5s ease-in-out infinite; }
+.hinge { width: 84px; height: 40px; top: 36%; left: 26%; border-radius: 8px; animation: floatY 3.4s ease-in-out infinite; }
+.handle { width: 20px; height: 104px; top: 28%; left: 56%; border-radius: 10px; animation: floatY 3.4s ease-in-out infinite .5s; }
+.profile { width: 180px; height: 16px; top: 66%; left: 26%; border-radius: 6px; animation: floatY 3.4s ease-in-out infinite 1s; }
+@keyframes floatY { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-12px) rotate(.5deg); } }
+.bolt { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #e0e6ea, #8b97a0); box-shadow: 0 3px 6px rgba(0,0,0,.4); animation: floatY 2.6s ease-in-out infinite; }
+.b1 { top: 28%; left: 70%; } .b2 { top: 72%; left: 64%; animation-delay: .5s; } .b3 { top: 50%; left: 78%; animation-delay: 1s; }
+.weld-spark { position: absolute; width: 3px; height: 3px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px 2px rgba(255,210,130,.9); animation: weldFly 1.6s ease-out infinite; }
+.ws1{top:42%;left:40%;--wx:30px;animation-delay:0s}.ws2{top:42%;left:40%;--wx:-26px;animation-delay:.4s}
+.ws3{top:60%;left:58%;--wx:22px;animation-delay:.8s}.ws4{top:60%;left:58%;--wx:-30px;animation-delay:1.2s}
+@keyframes weldFly { 0%{ transform: translate(0,0) scale(1); opacity:1 } 100%{ transform: translate(var(--wx,20px),34px) scale(.3); opacity:0 } }
 
-/* Scene 6: assembled cabin */
-.cabin-stage { background: linear-gradient(180deg, #0e2230, #081420); }
-.cabin-panel { position: absolute; width: 90px; height: 220px; background: linear-gradient(135deg, rgba(180,230,250,.3), rgba(120,200,230,.1)); border: 2px solid rgba(210,240,250,.55); border-radius: 4px; }
-.p1 { left: calc(50% - 95px); transform: perspective(600px) rotateY(18deg); }
-.p2 { left: calc(50% + 5px); transform: perspective(600px) rotateY(-18deg); }
-.cabin-door { position: absolute; width: 90px; height: 220px; left: calc(50% - 45px); background: linear-gradient(135deg, rgba(200,240,255,.4), rgba(150,210,235,.15)); border: 2px solid rgba(220,245,255,.7); border-radius: 4px; box-shadow: 0 0 30px rgba(120,210,240,.3); animation: doorSlide 3.2s ease-in-out infinite; }
-@keyframes doorSlide { 0%,15% { transform: translateX(0); } 50%,65% { transform: translateX(40px); } 100% { transform: translateX(0); } }
-.cabin-base { position: absolute; bottom: 14%; width: 240px; height: 10px; background: linear-gradient(90deg, #4a5a66, #aeb8bf, #4a5a66); border-radius: 4px; }
+/* ---- Scene 6: assembly — finished glass cabin in 3D ---- */
+.cabin-stage { background: radial-gradient(circle at 50% 30%, #163444, #0c2230 55%, #06141d 100%); }
+.cabin-floor { position: absolute; bottom: 12%; width: 60%; height: 30px; border-radius: 50%; background: radial-gradient(ellipse, rgba(120,200,240,.25), transparent 70%); filter: blur(4px); }
+.cabin-3d { position: relative; z-index: 3; width: 240px; height: 280px; transform-style: preserve-3d; animation: cabinTurn 9s ease-in-out infinite; }
+@keyframes cabinTurn { 0%,100%{ transform: perspective(800px) rotateY(-14deg) } 50%{ transform: perspective(800px) rotateY(14deg) } }
+.cabin-panel { position: absolute; bottom: 0; width: 96px; height: 250px; background: linear-gradient(135deg, rgba(190,235,252,.28), rgba(110,195,230,.08) 60%, rgba(190,235,252,.18)); border: 1.5px solid rgba(215,245,255,.6); border-radius: 4px; overflow: hidden; }
+.p1 { left: 8px; transform: perspective(600px) rotateY(32deg); transform-origin: left center; }
+.p2 { right: 8px; transform: perspective(600px) rotateY(-32deg); transform-origin: right center; }
+.cabin-door { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 104px; height: 250px; background: linear-gradient(135deg, rgba(210,245,255,.36), rgba(150,210,235,.12)); border: 1.5px solid rgba(225,250,255,.8); border-radius: 4px; box-shadow: 0 0 34px rgba(120,210,240,.35); overflow: hidden; animation: doorSlide 4.5s ease-in-out infinite; }
+@keyframes doorSlide { 0%,18% { transform: translateX(-50%); } 52%,68% { transform: translateX(-18%); } 100% { transform: translateX(-50%); } }
+.panel-shine { position: absolute; top: 0; left: -70%; width: 55%; height: 100%; background: linear-gradient(110deg, transparent, rgba(255,255,255,.4), transparent); transform: skewX(-18deg); animation: glassGlint 5s ease-in-out infinite; }
+.cabin-handle { position: absolute; bottom: 44%; left: calc(50% + 38px); width: 7px; height: 46px; border-radius: 6px; background: linear-gradient(180deg, #e0e6ea, #8b97a0); z-index: 4; }
+.cabin-base { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 230px; height: 12px; background: linear-gradient(90deg, #3a4a56, #aeb8bf, #3a4a56); border-radius: 4px; box-shadow: 0 6px 14px rgba(0,0,0,.4); }
+.final-shine { position: absolute; inset: 0; z-index: 5; background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.12) 48%, transparent 62%); animation: shineMove 6s linear infinite; pointer-events: none; }
 
-.process-dots { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 5; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.25); transition: background .2s ease, transform .2s ease; }
-.dot.active { background: var(--accent); transform: scale(1.3); }
+.process-dots { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 10; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.25); transition: background .3s ease, transform .3s ease; }
+.dot.active { background: var(--accent); transform: scale(1.4); box-shadow: 0 0 10px rgba(47,182,224,.8); }
 
 .process-steps { display: flex; flex-direction: column; }
 .step { min-height: 76vh; display: flex; flex-direction: column; justify-content: center; padding: 40px 20px; color: var(--text-light); opacity: .35; transition: opacity .4s ease; }

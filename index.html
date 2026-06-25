@@ -155,57 +155,125 @@
     <div class="process-visual-wrap">
       <div class="process-visual" id="processVisual">
 
+        <!-- Scene 1: Raw material — sand under volumetric light -->
         <div class="scene active" data-scene="1">
           <div class="scene-stage sand-stage">
-            <div class="sand-pile"></div>
-            <div class="sand-grain g1"></div><div class="sand-grain g2"></div>
-            <div class="sand-grain g3"></div><div class="sand-grain g4"></div>
-            <div class="sand-grain g5"></div><div class="sand-grain g6"></div>
+            <div class="depth-back"></div>
+            <div class="godray gr1"></div><div class="godray gr2"></div><div class="godray gr3"></div>
+            <div class="dust d1"></div><div class="dust d2"></div><div class="dust d3"></div>
+            <div class="dust d4"></div><div class="dust d5"></div><div class="dust d6"></div>
+            <div class="sand-dune dune-back"></div>
+            <div class="sand-dune dune-mid"></div>
+            <div class="sand-pile">
+              <div class="sand-hi"></div>
+            </div>
+            <div class="sand-stream">
+              <div class="sand-grain g1"></div><div class="sand-grain g2"></div>
+              <div class="sand-grain g3"></div><div class="sand-grain g4"></div>
+              <div class="sand-grain g5"></div><div class="sand-grain g6"></div>
+              <div class="sand-grain g7"></div><div class="sand-grain g8"></div>
+            </div>
+            <div class="scene-vignette"></div>
+            <div class="scene-grain"></div>
           </div>
         </div>
 
+        <!-- Scene 2: Melting — furnace with molten glass -->
         <div class="scene" data-scene="2">
           <div class="scene-stage furnace-stage">
+            <div class="heat-haze"></div>
             <div class="furnace-glow"></div>
+            <div class="furnace-glow-core"></div>
             <div class="furnace-body">
-              <div class="molten-pool"></div>
+              <div class="furnace-arch"></div>
+              <div class="molten-pool">
+                <div class="molten-wave w1"></div>
+                <div class="molten-wave w2"></div>
+                <div class="molten-shine"></div>
+              </div>
+              <div class="molten-drip"></div>
             </div>
-            <div class="spark s1"></div><div class="spark s2"></div><div class="spark s3"></div>
+            <div class="ember e1"></div><div class="ember e2"></div><div class="ember e3"></div>
+            <div class="ember e4"></div><div class="ember e5"></div><div class="ember e6"></div>
+            <div class="ember e7"></div><div class="ember e8"></div>
+            <div class="scene-vignette warm"></div>
+            <div class="scene-grain"></div>
           </div>
         </div>
 
+        <!-- Scene 3: Cutting — laser scoring on glass sheet -->
         <div class="scene" data-scene="3">
           <div class="scene-stage cut-stage">
-            <div class="glass-sheet"></div>
-            <div class="cut-line"></div>
-            <div class="cut-spark"></div>
+            <div class="depth-back cool"></div>
+            <div class="cut-table"></div>
+            <div class="glass-sheet">
+              <div class="glass-reflection"></div>
+              <div class="glass-edge-hi"></div>
+            </div>
+            <div class="cut-head">
+              <div class="cut-line"></div>
+              <div class="cut-spark"></div>
+              <div class="cut-spark-burst"></div>
+            </div>
+            <div class="laser-sweep"></div>
+            <div class="scene-vignette cool"></div>
+            <div class="scene-grain"></div>
           </div>
         </div>
 
+        <!-- Scene 4: Tempering — glass through heating elements + air quench -->
         <div class="scene" data-scene="4">
           <div class="scene-stage temper-stage">
+            <div class="heat-haze"></div>
             <div class="temper-oven">
-              <div class="temper-glass"></div>
-              <div class="heat-bar h1"></div><div class="heat-bar h2"></div><div class="heat-bar h3"></div>
+              <div class="coil c1"></div><div class="coil c2"></div><div class="coil c3"></div>
+              <div class="coil c4"></div><div class="coil c5"></div>
+              <div class="temper-glass">
+                <div class="temper-glow"></div>
+              </div>
+              <div class="roller r1"></div><div class="roller r2"></div>
+              <div class="roller r3"></div><div class="roller r4"></div>
+              <div class="quench-jet q1"></div><div class="quench-jet q2"></div>
+              <div class="quench-jet q3"></div><div class="quench-jet q4"></div>
             </div>
+            <div class="ember e1"></div><div class="ember e2"></div><div class="ember e3"></div>
+            <div class="scene-vignette warm"></div>
+            <div class="scene-grain"></div>
           </div>
         </div>
 
+        <!-- Scene 5: Hardware — metal fittings, machined & assembled -->
         <div class="scene" data-scene="5">
           <div class="scene-stage fittings-stage">
-            <div class="fitting hinge"></div>
-            <div class="fitting handle"></div>
-            <div class="fitting profile"></div>
-            <div class="bolt b1"></div><div class="bolt b2"></div>
+            <div class="depth-back steel"></div>
+            <div class="spotlight"></div>
+            <div class="fitting hinge"><div class="metal-shine"></div></div>
+            <div class="fitting handle"><div class="metal-shine"></div></div>
+            <div class="fitting profile"><div class="metal-shine"></div></div>
+            <div class="bolt b1"></div><div class="bolt b2"></div><div class="bolt b3"></div>
+            <div class="weld-spark ws1"></div><div class="weld-spark ws2"></div>
+            <div class="weld-spark ws3"></div><div class="weld-spark ws4"></div>
+            <div class="scene-vignette"></div>
+            <div class="scene-grain"></div>
           </div>
         </div>
 
+        <!-- Scene 6: Assembly — finished glass shower cabin -->
         <div class="scene" data-scene="6">
           <div class="scene-stage cabin-stage">
-            <div class="cabin-panel p1"></div>
-            <div class="cabin-panel p2"></div>
-            <div class="cabin-door"></div>
-            <div class="cabin-base"></div>
+            <div class="depth-back cool"></div>
+            <div class="spotlight soft"></div>
+            <div class="cabin-floor"></div>
+            <div class="cabin-3d">
+              <div class="cabin-panel p1"><div class="panel-shine"></div></div>
+              <div class="cabin-panel p2"><div class="panel-shine"></div></div>
+              <div class="cabin-door"><div class="panel-shine"></div></div>
+              <div class="cabin-handle"></div>
+              <div class="cabin-base"></div>
+            </div>
+            <div class="final-shine"></div>
+            <div class="scene-vignette cool"></div>
+            <div class="scene-grain"></div>
           </div>
         </div>
 
